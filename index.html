@@ -1,18 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Asincronous Javascript And Xml, en este caso JSON -->
     <title>AJAX Simple</title>
 </head>
-<body>
-    <button onClick="helloWorld()">Hello World</button>
 
+<body>
+    <button onClick="sendRequest()">Envia Petición AJAX</button>
+<h1 id="titulo"></h1>
     <script>
-        function helloWorld(){
-            console.log('hello world')
+        
+        // Recibir o enviar datos
+        function sendRequest() {
+            // Método del navegador que permite enviar y recibir datos
+            let objeto = new XMLHttpRequest
+            // a través de open le indicamos a donde vamos a pedir, a que dirección o arvhivo en este caso
+            // tipo de petición, dirección y 
+            // GET para recibir o POST para enviar
+            objeto.open('POST', 'backend.php', true)
+            // Le damos más información al navegador para decirle que información vamos a solicidar al servidor
+            // tipo de contenido que quiero
+            // Aca solo le solicito datos, nda de paginas html, etc
+            objeto.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+           
+           // eSTE METODO SE ENCARGA DE ESCUCHAR EL EVENTO, SE ENCARGA DE VER CUANDO SE RECIBE ALGO DEL SERVIDOR
+
+           respuesta = objeto.onreadystatechange = () =>{
+               console.log(objeto.responseText)
+           document.getElementById('titulo').innerHTML = objeto.responseText
+            }
+           
+            // enviamos la petición. Si es envio de datos se le agrega como argumento
+            // objeto.send()
+            objeto.send('username=pedro123')
+
         }
+
+
     </script>
 </body>
+
 </html>
